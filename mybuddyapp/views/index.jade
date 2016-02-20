@@ -2,9 +2,11 @@ extends layout
 
 block content
 	h1= title
-	col-lg-6
-		input-group
-			input.form-control(type="text" placeholder="Search for...")
-			span.input-group-btn
-				button.btn.btn-default(type="button")
-					"Go!"
+	form(method='POST', action='search')
+				.form-group
+					.input-group
+						input.form-control(name='search', id='search', placeholder='Search for...', value=filter)
+						span.input-group-btn
+							button.btn.btn-success(type='submit')
+								i.fa.fa-search
+
