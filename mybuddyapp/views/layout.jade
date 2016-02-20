@@ -1,11 +1,22 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
-  body
-    block content
-  script(src='/js/jquery-2.2.0.min.js')
-  script(src='/js/bootstrap.min.js')
+	head
+		title = title
+		link(rel='stylesheet', href='/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
+		link(rel='stylesheet', href='/css/cover.css')
+	body
+		.site-wrapper
+			.site-wrapper-inner
+				.cover-container
+					.masthead.clearfix
+						.inner
+							nav
+								ul.nav.masthead-nav
+									li.active 
+										a(href="#") Home
+					.inner.cover
+						block content
+			script(src='/js/jquery-2.2.0.min.js')
+			script(src='/js/bootstrap.min.js')
 

@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	col-lg-6
+		input-group
+			input.form-control(type="text" placeholder="Search for...")
+			span.input-group-btn
+				button.btn.btn-default(type="button")
+					"Go!"
