@@ -11,7 +11,7 @@ var User = new Schema({
     PriceRange:Number
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Post', User);
 
 
 var http = require('http')
