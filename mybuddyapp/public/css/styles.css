@@ -37,15 +37,15 @@ input.minimal::-webkit-input-placeholder {
 }
  
 input.minimal:-moz-placeholder { /* Firefox 18- */
-	color:white !important;  
+	color:rgba(255, 255, 255, .75) !important; 
 }
  
 input.minimal::-moz-placeholder {  /* Firefox 19+ */
-	color:white !important;  
+	color:rgba(255, 255, 255, .75) !important; 
 }
  
 input.minimal:-ms-input-placeholder {  
-	color:white !important;  
+	color:rgba(255, 255, 255, .75) !important;
 }
 
 .btn-round {
@@ -543,10 +543,46 @@ input::-webkit-slider-thumb:active {
 	border:0px;
 }
 
+.modal{
+	color: #333 !important;
+}
+
 .modal-body input {
-	color: #333;
+	color: #333 !important;
+	border-bottom:1px #DCDCDC solid !important;
+	font-size: 18px;
+	width: 100%;
+}
+
+.modal-body input.minimal::-webkit-input-placeholder {
+	color:rgba(0, 0, 0, .35) !important;
+}
+ 
+.modal-body input.minimal:-moz-placeholder { /* Firefox 18- */
+	color:rgba(0, 0, 0, .35) !important;
+}
+ 
+.modal-body input.minimal::-moz-placeholder {  /* Firefox 19+ */
+	color:rgba(0, 0, 0, .35) !important;
+}
+ 
+.modal-body input.minimal:-ms-input-placeholder {  
+	color:rgba(0, 0, 0, .35) !important;
 }
 
 .modal-body {
 	display: inline-block;
+	width: 100%;
+}
+
+.modal-body .input-group{
+	width:100%;
+}
+
+.modal-body #email{
+	margin-bottom: 30px;
+}
+
+.site-wrapper-home {
+	overflow: auto !important;
 }
