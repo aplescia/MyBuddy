@@ -1,12 +1,60 @@
-extends layout
+
+div
+	form(action='/signup',method='post')
+
+	div(data-role='fieldcontain')
+		fieldset(data-role='controlgroup')
+		label(for='numberofpeople') numberofpeople
+		input(id='numberofpeople',type='number',value='',placeholder='@',name='numberofpeople')
+
+	div(data-role='fieldcontain')
+		fieldset(data-role='controlgroup')
+		label(for='name') name
+		input(id='name',type='text',value='',placeholder='@',name='name')
+
+	div(data-role='fieldcontain')
+		fieldset(data-role='controlgroup')
+		label(for='email') email
+		input(id='email',type='text',value='',placeholder='@',name='email')
+
+	div(data-role='fieldcontain')
+		fieldset(data-role='controlgroup')
+		label(for='destination') destination
+		input(id='destination',type='text',value='',placeholder='@',name='destination')
+
+	div(data-role='fieldcontain')
+		fieldset(data-role='controlgroup')
+		label(for='date') datein
+		input(id='date',type='date',value='',placeholder='@',name='date')
+
+	div(data-role='fieldcontain')
+		fieldset(data-role='controlgroup')
+		label(for='date') dateout
+		input(id='date',type='date',value='',placeholder='@',name='date')
+
+	div(data-role='fieldcontain')
+		fieldset(data-role='controlgroup')
+		label(for='location') Price
+		input(id='price',type='text',value='',placeholder='@',name='price')
+                               
+	div(data-role='fieldcontain')   
+		input(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
 
 block content
 	h1= title
 	form(method='POST', action='search')
-				.form-group
-					.input-group
-						input.form-control(name='search', id='search', placeholder='Search for...', value=filter)
+				.form-group.col-xs-12
+					.input-group.voffset3
+						input.form-control(name='search', id='search', placeholder='My Destination', value=filter)
 						span.input-group-btn
 							button.btn.btn-success(type='submit')
 								span.glyphicon.glyphicon-search(aria-hidden="true")
+					.input-group.date.voffset3.col-xs-6(data-provide="datepicker")
+						input.form-control(type="text", placeholder='Check-in Date')
+						.input-group-addon
+							span.glyphicon.glyphicon-calendar(aria-hidden="true")
+					.input-group.date.voffset3.col-xs-6(data-provide="datepicker")
+						input.form-control(type="text", placeholder='Check-out Date')
+						.input-group-addon
+							span.glyphicon.glyphicon-calendar(aria-hidden="true")
 
