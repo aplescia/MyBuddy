@@ -3,6 +3,7 @@ Requires
 */
 var express = require('express');
 var request = require('request');
+var geocoder = require('./geocoder')
 var _ = require('underscore');
 
 var router = express.Router();
@@ -27,7 +28,5 @@ function getJSON(latitudeCoordinates, longitudeCoordinates) {
         }
     });
 }
-
-var hotel = getJSON('1','-1');
 
 module.exports = router;
