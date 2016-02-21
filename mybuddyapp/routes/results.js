@@ -9,6 +9,7 @@ var _ = require('underscore');
 var router = express.Router();
 
 /*GET results*/
+
 function getJSON(latitudeCoordinates, longitudeCoordinates) {
     var tripAdvisorURL = 'http://api.tripadvisor.com/api/partner/2.0/map/' + latitudeCoordinates + ',' + longitudeCoordinates + '/hotels?key=33C9422BFBA246AE8D4A81AD08919253';
     console.log(tripAdvisorURL);
