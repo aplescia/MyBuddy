@@ -5,9 +5,9 @@ block content
     form.voffset5(method='POST', action='search')
                 .form-group.col-xs-12
                     #locationSearchParent.input-group.voffset3
-                        input.form-control(name='search', id='locationSearch', placeholder='My Destination', value=filter)
+                        input.minimal(name='search', id='locationSearch', placeholder='My Destination', value=filter)
                         span.input-group-btn
-                            button.btn.btn-success(type='submit')
+                            button.btn(type='submit' id="searchBtn")
                                 span.glyphicon.glyphicon-search(aria-hidden="true")
                     .input-group.date.voffset3.col-xs-6(data-provide="datepicker")
                         input.form-control(type="text", placeholder='Check-in Date')
