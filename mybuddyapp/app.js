@@ -174,7 +174,6 @@ app.get('/nomatch', function(request, response) {
   response.send("Nomatch");
 });
 app.get('/chat/:id', function(request, response) {
-  user.name
   response.render('Chat', { title: 'Bunkr',id:request.params.id });
 });
 
