@@ -3,10 +3,19 @@ extends layout
 block content
 	h1= title
 	form(method='POST', action='search')
-				.form-group
-					.input-group
-						input.form-control(name='search', id='search', placeholder='Search for...', value=filter)
+				.form-group.col-xs-12
+					.input-group.voffset3
+						input.form-control(name='search', id='search', placeholder='My Destination', value=filter)
 						span.input-group-btn
 							button.btn.btn-success(type='submit')
 								span.glyphicon.glyphicon-search(aria-hidden="true")
+					.input-group.date.voffset3.col-xs-6(data-provide="datepicker")
+						input.form-control(type="text", placeholder='Check-in Date')
+						.input-group-addon
+							span.glyphicon.glyphicon-calendar(aria-hidden="true")
+					.input-group.date.voffset3.col-xs-6(data-provide="datepicker")
+						input.form-control(type="text", placeholder='Check-out Date')
+						.input-group-addon
+							span.glyphicon.glyphicon-calendar(aria-hidden="true")
+
 
