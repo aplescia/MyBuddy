@@ -1,8 +1,7 @@
 // grab the things we need
-  response.render('chat', { title: 'Bunkr',id:request.params.id });
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var utilResults = require('./results');
+var utilResults = require('./util/results');
 
 mongoose.connect('mongodb://mybuddymongo.cloudapps.net');
 // // create a schema
@@ -207,8 +206,6 @@ app.get('/chat/:id', function(request, response) {
         res.sendStatus(400);
       }
     });
-
-};
   });
 });
 
