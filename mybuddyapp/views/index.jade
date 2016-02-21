@@ -1,10 +1,42 @@
-extends layout
+div
+  form(action='/signup',method='post')
 
-block content
-	h1= title
-	col-lg-6
-		input-group
-			input.form-control(type="text" placeholder="Search for...")
-			span.input-group-btn
-				button.btn.btn-default(type="button")
-					"Go!"
+    div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='numberofpeople') numberofpeople
+           input(id='numberofpeople',type='number',value='',placeholder='@',name='numberofpeople')
+
+    div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='name') name
+           input(id='name',type='text',value='',placeholder='@',name='name')
+
+    div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='email') email
+           input(id='email',type='text',value='',placeholder='@',name='email')
+
+    div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='destination') destination
+           input(id='destination',type='text',value='',placeholder='@',name='destination')
+
+    div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='date') datein
+           input(id='date',type='date',value='',placeholder='@',name='date')
+
+    div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='date') dateout
+           input(id='date',type='date',value='',placeholder='@',name='date')
+
+    div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='location') Price
+           input(id='price',type='text',value='',placeholder='@',name='price')
+                                           
+       label(for='showpass') show password
+       input(id='showpass',type='checkbox')
+    div(data-role='fieldcontain')   
+      input(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
