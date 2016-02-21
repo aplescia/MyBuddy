@@ -170,9 +170,6 @@ app.post('/signup', function(request, response){
   });
 });
 
-app.get('/nomatch', function(request, response) {
-  response.send("Nomatch");
-});
 app.get('/chat/:id', function(request, response) {
   User.findOne({ name: request.params.id}, function(err, obj){
     console.log(obj);
