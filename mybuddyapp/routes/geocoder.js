@@ -4,7 +4,6 @@ var request = require('request');
 var router = express.Router();
 var  apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address";
 var apiKey = "AIzaSyD4MWJaPnCAoFbuNFerKLkGNH92gUe4Dbo";
-var resultsHelper = require('./results');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     var userLoc = req.query.location;
@@ -29,7 +28,7 @@ router.get('/', function(req, res, next) {
           var result = {};
           result.address = address;
           result.location = geoLoc;
-          resultsHelper(geoLoc.lat, geoLoc.lng,res);
+          res.send(result);
 
         }
         else{

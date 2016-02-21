@@ -3,13 +3,12 @@ Requires
 */
 var express = require('express');
 var request = require('request');
-var geocoder = require('./geocoder')
 var _ = require('lodash');
 
 var router = express.Router();
 
 /*GET results*/
-function getJSON(latitudeCoordinates, longitudeCoordinates, res) {
+function getJSON(latitudeCoordinates, longitudeCoordinates, callback) {
     var tripAdvisorURL = 'http://api.tripadvisor.com/api/partner/2.0/map/' + latitudeCoordinates + ',' + longitudeCoordinates + '/hotels?key=33C9422BFBA246AE8D4A81AD08919253';
     console.log(tripAdvisorURL);
     request(tripAdvisorURL  , function(error,response,body){
@@ -25,7 +24,7 @@ function getJSON(latitudeCoordinates, longitudeCoordinates, res) {
                 }
             });
             console.log(hotels);
-            res.send( hotels);
+            callback( hotels);
         }
     });
 }
