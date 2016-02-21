@@ -12,8 +12,8 @@ block content
                                     input.minimal.large(id='locationSearch', placeholder='My Destination', value=filter, name='destination')
                                     span.input-group-btn
                                         button#searchBtn.btn.btn-round(type='')
-                                            span.glyphicon.glyphicon-search(aria-hidden="true")  
-                            .form-group.col-xs-12.voffset5(id="dates")       
+                                            span.glyphicon.glyphicon-search(aria-hidden="true")
+                            .form-group.col-xs-12.voffset5(id="dates")
                                 .input-group.date.voffset3.col-sm-6(data-provide="datepicker" id="dateIn")
                                     input.minimal.form-control(type="text", placeholder='Check-in Date', name='datein')
                                     .input-group-addon
@@ -34,16 +34,16 @@ block content
                                 .modal-content
                                   .modal-header
                                     button.close(type='button', data-dismiss='modal') ×
-                                    h4.modal-title We need some info to pair you up
+                                    h4.modal-title One last step 
                                   .modal-body
                                     .form-group
                                         .input-group.input-group-lg.voffset5
                                             input.minimal(id='name',type='text',value='',placeholder='Full Name',name='name')
-                                        .input-group.input-group-lg.voffset5(id="email") 
-                                            input.minimal(id='email',type='text',value='',placeholder='Email',name='email')    
+                                        .input-group.input-group-lg.voffset5(id="email")
+                                            input.minimal(id='email',type='text',value='',placeholder='Email',name='email')
                                   .modal-footer
                                     button.btn.btn-success(type='submit', data-dismiss='modal') Confirm
-                                    button.btn.btn-danger(type='button', data-dismiss='modal') Close        
+                                    button.btn.btn-danger(type='button', data-dismiss='modal') Close
 
-            
+
     script(src='/js/index.js')

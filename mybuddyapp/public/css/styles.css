@@ -527,7 +527,7 @@ input::-webkit-slider-thumb:active {
 
 #searchBtn {
 	background-color: transparent !important;
-	font-size: 20px !important;
+	font-size: 35px !important;
 }
 
 #dateIn, #dateOut {
@@ -545,6 +545,7 @@ input::-webkit-slider-thumb:active {
 
 .modal{
 	color: #333 !important;
+  font-family: lato, sans-serif;
 }
 
 .modal-body input {

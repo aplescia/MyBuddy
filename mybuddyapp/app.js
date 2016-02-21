@@ -67,7 +67,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-
+app.use('/geocoder', geocoder);
 
 
 /*app.post('/signup', function(request, response){
