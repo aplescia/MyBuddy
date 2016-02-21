@@ -2,13 +2,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
 mongoose.connect('mongodb://localhost/test');
-// create a schema
+// // create a schema
 var userSchema = new Schema({
   matched: Boolean,
   name: String,
   email: String,
-  destination: String,
+  destination: String,   
   datein: Date,
   dateout: Date,
 })
@@ -18,9 +19,14 @@ var userSchema = new Schema({
 var User = mongoose.model('User', userSchema);
 
 // make this available to our users in our Node applications
-module.exports = User;
+//module.exports = User;
 
 
+
+ var User = mongoose.model('User', userSchema);
+
+
+var http = require('http');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -33,11 +39,16 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var geocoder = require('./routes/geocoder');
 var nodemailer = require('nodemailer');
-var app = express();
 
+var app = express();
+var nodemailer = require('nodemailer');
 // view engine setup
+
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade'); //tells app to use Jade to render its views
+
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -50,7 +61,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/geocoder', geocoder);
-
 
 app.post('/signup', function(request, response){
   var user = new User({
@@ -206,6 +216,7 @@ function sendemail(email,nofpeople,name,boolean){
  });
 }
 
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -235,6 +246,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

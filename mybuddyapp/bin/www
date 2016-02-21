@@ -32,6 +32,19 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
+var io = require('socket.io').listen(server);
+var chatHistory = [];  
+
+io.sockets.on('connection', function (socket) {
+    socket.emit('message', { message: chatHistory },true);
+    socket.on('send', function (data) {
+        chatHistory.push(data.message);
+        io.sockets.emit('message', data,false);
+        console.log(chatHistory);
+    });
+});
+
+
 
 function normalizePort(val) {
   var port = parseInt(val, 10);

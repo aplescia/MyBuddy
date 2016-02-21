@@ -11,5 +11,15 @@ html
     script(src='/js/bootstrap.min.js')
     script(src='/js/bootstrap-datepicker.js')
   body
-    block content
+    .site-wrapper
+      .site-wrapper-inner
+        .cover-container
+          .masthead.clearfix
+            .inner
+              nav
+                ul.nav.masthead-nav
+                  li(class=title == 'Bunkr' ? 'active' : undefined)
+                    a(href="/") Home
+          .inner.cover
+          block content
 
