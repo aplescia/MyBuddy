@@ -5,32 +5,41 @@ block content
         .inner.cover
             img.img-responsive.center-block(src="/img/bunkr_logo.png", alt="MyBuddy", width="300")
             h3.italic Sharing a matress could save you <br> 15% or more on hotel bookings
-            form.voffset5(action='/signup',method='post')
-                        .form-group.col-xs-12
-                            #locationSearchParent.input-group.voffset3
+            form.voffset2.form-inline(action='/signup',method='post')
+                        .form-group.col-xs-12.voffset3
+                            #locationSearchParent.input-group
                                 input.minimal.large(id='locationSearch', placeholder='My Destination', value=filter, name='destination')
                                 span.input-group-btn
                                     button#searchBtn.btn.btn-round(type='')
-                                        span.glyphicon.glyphicon-search(aria-hidden="true")
-                            .input-group.date.voffset3.col-xs-6(data-provide="datepicker")
-                                input.form-control(type="text", placeholder='Check-in Date', name='datein')
+                                        span.glyphicon.glyphicon-search(aria-hidden="true")  
+                        .form-group.col-xs-12.voffset5(id="dates")       
+                            .input-group.date.voffset3.col-sm-6(data-provide="datepicker" id="dateIn")
+                                input.minimal.form-control(type="text", placeholder='Check-in Date', name='datein')
                                 .input-group-addon
                                     span.glyphicon.glyphicon-calendar(aria-hidden="true")
-                            .input-group.date.voffset3.col-xs-6(data-provide="datepicker")
-                                input.form-control(type="text", placeholder='Check-out Date', name='dateout')
+                            .input-group.date.voffset3.col-sm-6(data-provide="datepicker" id="dateOut")
+                                input.minimal.form-control(type="text", placeholder='Check-out Date', name='dateout')
                                 .input-group-addon
                                     span.glyphicon.glyphicon-calendar(aria-hidden="true")
-
-                            input.minimal.voffset3(id='numberofpeople',type='number',value='',placeholder='Number of People',name='numberofpeople')
-
-                            input.minimal.voffset3(id='name',type='text',value='',placeholder='Full Name',name='name')
-
-                            input.minimal.voffset3(id='email',type='text',value='',placeholder='Email',name='email')
-
-                            input.minimal.voffset3(id='price',type='text',value='',placeholder='Price',name='price')
-
-                            button.btn.btn-default.btn-lg.voffset3(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
-                        
+                        .form-group.col-xs-12.voffset3
+                            label Price
+                            fieldset
+                                input.minimal.pricerange(type='range' value='0')
+                        .form-group.col-xs-12.voffset5
+                            button.btn.btn-success.btn-lg(type="button" aria-label="Left Align" data-toggle="modal" data-target="#myModal")
+                                span Pair Me Up
+                        #myModal.modal.fade(role='dialog')
+                          .modal-dialog
+                            .modal-content
+                              .modal-header
+                                button.close(type='button', data-dismiss='modal') ×
+                                h4.modal-title Modal Header
+                              .modal-body
+                                .form-group.col-xs-12.voffset3  
+                                    input.voffset3(id='name',type='text',value='',placeholder='Full Name',name='name')
+                                    input.voffset3(id='email',type='text',value='',placeholder='Email',name='email')    
+                              .modal-footer
+                                button.btn.btn-default(type='button', data-dismiss='modal') Close        
 
             
     script(src='/js/index.js')
