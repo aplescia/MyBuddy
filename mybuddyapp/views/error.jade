@@ -1,7 +1,11 @@
 extends layout
 
 block content
-    .site-wrapper
-          h1= message
-          h2= error.status
-          pre #{error.stack}
+    site-wrapper
+        .menu
+            a(href="/")
+            img.img-responsive.center-block.logo-sm(src="/img/bunkr_logo_color.png", alt="MyBuddy", width="100px")
+
+      	h1.voffset7= message
+      	h2= error.status
+      	pre #{error.stack}
