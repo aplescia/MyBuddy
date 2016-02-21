@@ -374,7 +374,7 @@ input.textarea {
     bottom: 0px;
     left: 0px;
     right: 0px;
-    width: 65%;
+    width: 100%;
     height: 50px;
     z-index: 99;
     background: #fafafa;

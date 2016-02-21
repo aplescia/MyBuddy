@@ -1,7 +1,7 @@
 window.onload = function() {
  
     var messages = [];
-    var socket = io.connect('/');
+    var socket = io.connect('localhost:3000/');
     var name = document.getElementById("NameofPerson");
     var field = document.getElementById("field");
     var sendButton = document.getElementById("send");
@@ -44,22 +44,23 @@ window.onload = function() {
 var renderMessage = function(message){
   var isSelf = (message.indexOf(name.value) == 0);
   var colonLoc = message.indexOf(":");
-  var body = message.slice(colonLoc);
+  var body = message;
+  console.log(body)
   if(isSelf){
-    return selfSideTemplate({message:locals});
+    return selfSideTemplate({message:body});
   }
   else{
-    return otherSideTemplate({message:locals});
+    return otherSideTemplate({message:body});
   }
 }
 function otherSideTemplate(locals) {
   var buf = [];
   var jade_mixins = {};
   var jade_interp;
-  var locals_for_with = locals || {};
+  var locals_for_with = locals.message;
   (function(message) {
-    buf.push('<li class="other"><div class="avatar hide"><img src="/img/user.png" draggable="false"></div><div class="msg"><p>' + jade.escape((jade_interp = message) == null ? "" : jade_interp) + "</p></div></li>");
-  }).call(this, "message" in locals_for_with ? locals_for_with.message : typeof message !== "undefined" ? message : undefined);
+    buf.push('<li class="other"><div class="avatar"><img src="/img/user.png" draggable="false"></div><div class="msg"><p>'+message  + "</p></div></li>");
+  }).call(this, locals_for_with);
   return buf.join("");
 }
 function selfSideTemplate(locals) {
@@ -68,7 +69,7 @@ function selfSideTemplate(locals) {
   var jade_interp;
   var locals_for_with = locals || {};
   (function(message) {
-    buf.push('<li class="other"><div class="avatar hide"><img src="/img/user.png" draggable="false"></div><div class="msg"><p>' + jade.escape((jade_interp = message) == null ? "" : jade_interp) + "</p></div></li>");
+    buf.push('<li class="other"><div class="avatar"><img src="/img/user.png" draggable="false"></div><div class="msg"><p>' +message+ "</p></div></li>");
   }).call(this, "message" in locals_for_with ? locals_for_with.message : typeof message !== "undefined" ? message : undefined);
   return buf.join("");
 }
