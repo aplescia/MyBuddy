@@ -6,19 +6,25 @@ var Schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost/test');
 // // create a schema
 var userSchema = new Schema({
+  matched: Boolean,
   name: String,
   email: String,
   destination: String,   
   datein: Date,
-   dateout: Date,
-   price: Number,
-   numberofpeople: Number,
- });
+  dateout: Date,
+})
+
+// the schema is useless so far
+// we need to create a model using it
+var User = mongoose.model('User', userSchema);
+
+// make this available to our users in our Node applications
+//module.exports = User;
+
 
 
  var User = mongoose.model('User', userSchema);
 
-// module.exports = User;
 
 var http = require('http');
 var express = require('express');
@@ -31,7 +37,8 @@ var request = require('request'); //request package
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var geocoder = require('./routes/geocoder')
+var geocoder = require('./routes/geocoder');
+var nodemailer = require('nodemailer');
 
 var app = express();
 var nodemailer = require('nodemailer');
@@ -59,42 +66,109 @@ app.post('/signup', function(request, response){
   var user = new User({
     name: request.body.name,
     email: request.body.email,
-    destination: request.body.destination,     
+    destination: request.body.destination,
     datein: request.body.datein,
-   dateout: request.body.dateout,
-     price: request.body.price,
-     numberofpeople: request.body.numberofpeople,
-   });
-   console.log(request.body);
-     user.save(function(err){
-      if (err) throw err;
-      console.log('User saved successfully!');
-    });
-   User.find({ destination: request.body.destination,
-     datein: request.body.datein,numberofpeople: request.body.numberofpeople,
-     }, function(err, thor) {
-      console.log('User matched!');
-      var email = ""
-      for (var i=0;i<thor.length;i++){
-        if (i==0){
-          email+= ""+thor[i].email;
-        }else{
-          email+= ", "+thor[i].email
-        }
-      }
-      if(thor.length<=1){
-        sendemail(email,thor.length,request.body.name,false); 
-        var redirectlink = 'http://localhost:3000/nomatch/';
-        response.redirect(redirectlink);
-      } else{
-        sendemail(email,thor.length,request.body.name,true); 
-        var redirectlink = 'http://localhost:3000/chat/';
-        redirectlink += request.body.name;
-        response.redirect(redirectlink);
-      }   
-     console.log(email);
-   });
- });
+    dateout: request.body.dateout,
+    matched: false,
+  });
+
+  var userdatelength = Math.ceil(Math.abs(user.dateout.getTime() - user.datein.getTime())/(1000 * 3600 * 24));
+  var dateincheck = false;
+  var datoutcheck = false;
+  User.find({ destination: request.body.destination,
+     datein: {'$gte': user.datein}, matched: false,
+     }, function(err, matchedusers) {
+      var matcheduser = null;
+       for(var j = 0; j < matchedusers.length; j++){
+        console.log(matchedusers[j]);
+       }
+       for (var j = 0; j < matchedusers.length; j++){
+          matcheduser = matchedusers[j];
+          var matcheddatelength = Math.ceil(Math.abs(matcheduser.dateout.getTime() - matcheduser.datein.getTime())/(1000 * 3600 * 24));
+          var overlap = 0;
+          if(matcheduser.dateout < user.dateout){
+            overlap = matcheddatelength;
+          } else{
+            overlap = Math.ceil(Math.abs(user.dateout.getTime() - matcheduser.datein.getTime())/(1000 * 3600 * 24));
+          }
+          if(overlap/userdatelength > 0.7 && overlap/matcheddatelength > 0.7){
+            matcheduser = matchedusers[j];
+            console.log(matchedusers[j].matched);
+            matcheduser.matched = true;
+            matcheduser.save(function(err){
+               if (err) throw err;
+               console.log('Matcheduser saved successfully!');
+             });
+            break;
+          }
+          matcheduser = null;
+       }
+       if(!(matcheduser == null)){
+          dateincheck = true;
+          sendemail(user.email + matcheduser.email,2,request.body.name,true); 
+          var redirectlink = 'http://localhost:3000/chat/';
+          redirectlink += request.body.name;
+          response.redirect(redirectlink);
+          user.matched = true;
+          user.save(function(err){
+             if (err) throw err;
+             console.log(user);
+             console.log('tttttUser saved successfully!');
+           });
+       } else{
+         User.find({ destination: request.body.destination,
+         dateout: {'$lte': user.dateout}, matched: false,
+         }, function(err, matchedusers) {
+          var matcheduser = null;
+           for(var j = 0; j < matchedusers.length; j++){
+            console.log(matchedusers[j]);
+           }
+           for (var j = 0; j < matchedusers.length; j++){
+              matcheduser = matchedusers[j];
+              var matcheddatelength = Math.ceil(Math.abs(matcheduser.dateout.getTime() - matcheduser.datein.getTime())/(1000 * 3600 * 24));
+              var overlap = 0;
+              if(matcheduser.datein > user.datein){
+                overlap = matcheddatelength;
+              } else{
+                overlap = Math.ceil(Math.abs(matcheduser.dateout.getTime() - user.datein.getTime())/(1000 * 3600 * 24));
+              }
+              if(overlap/userdatelength > 0.7 && overlap/matcheddatelength > 0.7){
+                matcheduser = matchedusers[j];
+                console.log(matchedusers[j].matched);
+                matcheduser.matched = true;
+                matcheduser.save(function(err){
+                   if (err) throw err;
+                   console.log('Matcheduser saved successfully!');
+                 });
+                break;
+              }
+              matcheduser = null;
+           }
+           if(matcheduser == null){
+              sendemail(user.email,1,request.body.name,false); 
+              var redirectlink = 'http://localhost:3000/nomatch/';
+              response.redirect(redirectlink);
+              user.save(function(err){
+                 if (err) throw err;
+                 console.log(user);
+                 //console.log('ffffUser saved successfully!');
+               });
+           } else{
+              sendemail(user.email + matcheduser.email,2,request.body.name,true); 
+              var redirectlink = 'http://localhost:3000/chat/';
+              redirectlink += request.body.name;
+              response.redirect(redirectlink);
+              user.matched = true;
+              user.save(function(err){
+                 if (err) throw err;
+                 console.log(user);
+                 console.log('tttttUser saved successfully!');
+               });
+           }
+         });
+       }
+  });
+});
 
 app.get('/nomatch', function(request, response) {
   response.send("Nomatch");
