@@ -4,8 +4,8 @@ block content
     img.img-responsive.center-block(src="/img/logo.png", alt="MyBuddy", height="150", width="150")
     form.voffset5(method='POST', action='search')
                 .form-group.col-xs-12
-                    .input-group.voffset3
-                        input.form-control(name='search', id='search', placeholder='My Destination', value=filter)
+                    #locationSearchParent.input-group.voffset3
+                        input.form-control(name='search', id='locationSearch', placeholder='My Destination', value=filter)
                         span.input-group-btn
                             button.btn.btn-success(type='submit')
                                 span.glyphicon.glyphicon-search(aria-hidden="true")
@@ -54,6 +54,8 @@ block content
             fieldset(data-role='controlgroup')
             label(for='location') Price
             input(id='price',type='text',value='',placeholder='@',name='price')
-                                   
-        div(data-role='fieldcontain')   
+
+        div(data-role='fieldcontain')
             input(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
+
+    script(src='/js/index.js')
