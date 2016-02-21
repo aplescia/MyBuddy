@@ -1,7 +1,8 @@
 // grab the things we need
+  response.render('chat', { title: 'Bunkr',id:request.params.id });
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+var utilResults = require('./results');
 
 mongoose.connect('mongodb://mybuddymongo.cloudapps.net');
 // // create a schema
@@ -174,7 +175,41 @@ app.get('/nomatch', function(request, response) {
   response.send("Nomatch");
 });
 app.get('/chat/:id', function(request, response) {
-  response.render('Chat', { title: 'Bunkr',id:request.params.id });
+  User.findOne({ name: request.params.id}, function(err, obj){
+    var destination = obj.destination;
+    var  apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address";
+    var apiKey = "AIzaSyD4MWJaPnCAoFbuNFerKLkGNH92gUe4Dbo";
+    var makeApiURL = function(location){
+      var URL = apiURL+"="+location+"&key="+apiKey;
+      return URL;
+    };
+    var apiCallURL = makeApiURL(destination);
+    //res.send(apiCallURL);
+    request.get(apiCallURL,function(error,response,body){
+      if (!error && response.statusCode == 200) {
+        var results = JSON.parse(body).results;
+        if(results.length == 0){
+          res.send(400);
+          return;
+        }
+        // Get location information of first result only
+        var topResult = results[0];
+        var address = topResult.formatted_address;
+        var geoLoc = topResult.geometry.location;
+        var result = {};
+        result.address = address;
+        result.location = geoLoc;
+        utilResults(geoLoc.lat, geoLoc.lng, function(hotels){
+          response.render('chat', { title: 'Bunkr',id:request.params.id, hotel:hotels });
+        });
+      }
+      else{
+        res.sendStatus(400);
+      }
+    });
+
+};
+  });
 });
 
 var smtpTransport = nodemailer.createTransport("SMTP",{
