@@ -13,5 +13,5 @@ searchBar.on("input", function(){
         var addr = data.address;
         searchBar.val(addr);
       }).fail(function(){$("#locationSearchParent").addClass("has-error,")});
-    },500);
+    },1000);
 });
