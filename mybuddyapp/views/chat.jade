@@ -1,6 +1,9 @@
 extends layout
 
 block content
+    span #{id}
+    .controls
+      input(type='hidden', id='NameofPerson', value='#{id}')
     .site-wrapper
       .menu
         a(href="/")
@@ -8,66 +11,20 @@ block content
       .chat-container
         .chat-left
           h3.empty.italic Get to know your Bunkr buddy before commiting to your booking
-          ol.chat
-            li.other
-              .avatar
-                img(src='/img/user.png', draggable='false')
-              .msg
-                p This is a test message of the  fdslfksda fd fads fsda fsdf sdfsd sdjfa slf
-                span.time 20:17
-            li.self
-              .avatar
-                img(src='/img/user.png', draggable='false')
-              .msg
-                p This is a test message of the  fdslfksda fd fads fsda fsdf sdfsd sdjfa slf
-                span.time 20:18
-            li.self
-              .avatar
-                img(src='/img/user.png', draggable='false')
-              .msg
-                p This is a test message of the  fdslfksda fd fads fsda fsdf sdfsd sdjfa slf
-                span.time 20:18
-            li.other
-              .avatar
-                img(src='/img/user.png', draggable='false')
-              .msg
-                p This is a test message of the  fdslfksda fd fads fsda fsdf sdfsd sdjfa slf
-                span.time 20:17
-            li.other
-              .avatar
-                img(src='/img/user.png', draggable='false')
-              .msg
-                p This is a test message of the  fdslfksda fd fads fsda fsdf sdfsd sdjfa slf
-                span.time 20:17
-            li.self
-              .avatar
-                img(src='/img/user.png', draggable='false')
-              .msg
-                p This is a test message of the  fdslfksda fd fads fsda fsdf sdfsd sdjfa slf
-                span.time 20:18
-            li.self
-              .avatar
-                img(src='/img/user.png', draggable='false')
-              .msg
-                p This is a test message of the  fdslfksda fd fads fsda fsdf sdfsd sdjfa slf
-                span.time 20:18
-            li.other
-              .avatar
-                img(src='/img/user.png', draggable='false')
-              .msg
-                p This is a test message of the  fdslfksda fd fads fsda fsdf sdfsd sdjfa slf
-                span.time 20:17
-            input.textarea(type='text', placeholder='Type here!')
-            .send.btn-round
-              span.glyphicon.glyphicon-send(aria-hidden="true")
+          ol#content.chat
+          input#field.textarea(type='text', placeholder='Type here!')
+          #send.send.btn-round
+            span.glyphicon.glyphicon-send(aria-hidden="true")
         .chat-right
           .sidebar
            .map
             img(src="/img/map.png" width="100%" height="100%")
            .info
             h3.hotel-name.voffset5 Sheraton fdsaf f dsf fasf sdf fdsf sadf sdfsda fsdaf sdfsda fsd
-            h3.price $99.60 
+            h3.price $99.60
             .save
               img(src="img/save.png" width="50px")
             button.btn.btn-success.btn-lg.voffset5(type="button" aria-label="Left Align")
               span Confirm Booking
+          script(src='/js/chat.js')
+          script(src='/socket.io/socket.io.js')
