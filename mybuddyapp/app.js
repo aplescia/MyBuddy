@@ -83,15 +83,25 @@ app.post('/signup', function(request, response){
           email+= ", "+thor[i].email
         }
       }
-      sendemail(email,thor.length);     
+      if(thor.length<=1){
+        sendemail(email,thor.length,request.body.name,false); 
+        var redirectlink = 'http://localhost:3000/nomatch/';
+        response.redirect(redirectlink);
+      } else{
+        sendemail(email,thor.length,request.body.name,true); 
+        var redirectlink = 'http://localhost:3000/chat/';
+        redirectlink += request.body.name;
+        response.redirect(redirectlink);
+      }   
      console.log(email);
    });
-
-   response.redirect('http://localhost:3000/chat');
  });
 
-app.get('/chat', function(request, response) {
-  response.render('Chat', { title: 'Bunkr' });
+app.get('/nomatch', function(request, response) {
+  response.send("Nomatch");
+});
+app.get('/chat/:id', function(request, response) {
+  response.render('Chat', { title: 'Bunkr',id:request.params.id });
 });
 
 var smtpTransport = nodemailer.createTransport("SMTP",{
@@ -102,16 +112,24 @@ var smtpTransport = nodemailer.createTransport("SMTP",{
      }
  });
 
-function sendemail(email,nofpeople){
-  var body = "<b>Hi!, We have found ";
-  body += nofpeople;
-  body += " people with the same preference as you.";
-  body +=" Please click on this link to active your";
-  body +="chat session http://localhost:3000/chat </b>";
+function sendemail(email,nofpeople,name,boolean){
+  if(boolean){
+      var body = "<b>Hi!, We have found ";
+    body += nofpeople;
+    body += " people with the same preference as you.";
+    body +=" Please click on this link to active your";
+    body +="chat session <a href=http://localhost:3000/chat/";
+    body +=name;
+    body +=">Link to Chat </a></b>";
+  }else{
+    var body = "<b>Hi!, Right now we are unable to match you with anyone." ;
+    body+="We will contact you as soon as we find a good match!</b>";
+  }
+  
  var mailOptions = {
      from: "lam.uong1@gmail.com", // sender address
      to: email, // list of receivers
-     subject: "People matching your preference", // Subject line
+     subject: "Bunkr: People matching your preference", // Subject line
      text: "Testnewapp", // plaintext body
      html: body, // html body
  }
@@ -125,12 +143,7 @@ function sendemail(email,nofpeople){
  });
 }
 
-
-
 // catch 404 and forward to error handler
-
-
-
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
