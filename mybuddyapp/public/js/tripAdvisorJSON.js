@@ -3,7 +3,7 @@ var _ = require('underscore');
 
 
 function getJSON(latitudeCoordinates, longitudeCoordinates) {
-    var tripAdvisorURL = 'http://api.tripadvisor.com/api/partner/2.0/map/' + '42.33141,-71.099396' + '/hotels?key=33C9422BFBA246AE8D4A81AD08919253';
+    var tripAdvisorURL = 'http://api.tripadvisor.com/api/partner/2.0/map/' + latitudeCoordinates + ',' + longitudeCoordinates + '/hotels?key=33C9422BFBA246AE8D4A81AD08919253';
     console.log(tripAdvisorURL);
     request(tripAdvisorURL  , function(error,response,body){
         if (!error && response.statusCode == 200){
@@ -23,5 +23,5 @@ function getJSON(latitudeCoordinates, longitudeCoordinates) {
     });
 }
 
-console.log(getJSON('45.1','71.1'));
+console.log(getJSON('45.49666','-73.48394'));
 
