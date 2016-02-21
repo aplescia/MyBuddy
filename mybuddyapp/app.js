@@ -1,5 +1,5 @@
 // grab the things we need
-var mongoose = require('mongoose');
+/*var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 mongoose.connect('mongodb://localhost/test');
@@ -68,7 +68,7 @@ app.use('/', routes);
 app.use('/users', users);
 
 
-app.post('/signup', function(request, response){
+/*app.post('/signup', function(request, response){
   var user = new User({
     name: request.body.name,
     email: request.body.email,
@@ -88,7 +88,7 @@ app.post('/signup', function(request, response){
     }, function(err, thor) {
     console.log(thor);
   });
-});
+});*/
 
 // var mailer = require("nodemailer");
 
