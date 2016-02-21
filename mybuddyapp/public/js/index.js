@@ -1,6 +1,7 @@
 var timeoutHolder;
+var searchBtn = $("#searchBtn");
 var searchBar = $("#locationSearch");
-searchBar.on("input", function(){
+searchBtn.on("click", function(){
   clearTimeout(timeoutHolder);
     timeoutHolder = setTimeout(function(){
       $.ajax({
@@ -14,4 +15,5 @@ searchBar.on("input", function(){
         searchBar.val(addr);
       }).fail(function(){$("#locationSearchParent").addClass("has-error,")});
     },1000);
+    return false;
 });
