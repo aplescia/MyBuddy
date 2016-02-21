@@ -175,6 +175,7 @@ app.get('/nomatch', function(request, response) {
 });
 app.get('/chat/:id', function(request, response) {
   User.findOne({ name: request.params.id}, function(err, obj){
+    console.log(obj);
     var destination = obj.destination;
     var  apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address";
     var apiKey = "AIzaSyD4MWJaPnCAoFbuNFerKLkGNH92gUe4Dbo";
@@ -188,7 +189,7 @@ app.get('/chat/:id', function(request, response) {
       if (!error && response.statusCode == 200) {
         var results = JSON.parse(body).results;
         if(results.length == 0){
-          res.send(400);
+          response.send(400);
           return;
         }
         // Get location information of first result only
@@ -198,12 +199,13 @@ app.get('/chat/:id', function(request, response) {
         var result = {};
         result.address = address;
         result.location = geoLoc;
+        console.log(result);
         utilResults(geoLoc.lat, geoLoc.lng, function(hotels){
           response.render('chat', { title: 'Bunkr',id:request.params.id, hotel:hotels });
         });
       }
       else{
-        res.sendStatus(400);
+        response.sendStatus(400);
       }
     });
   });
