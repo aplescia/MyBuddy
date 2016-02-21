@@ -55,7 +55,6 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/geocoder', geocoder);
 
-
 app.post('/signup', function(request, response){
   var user = new User({
     name: request.body.name,
