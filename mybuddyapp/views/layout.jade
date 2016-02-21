@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title #{title}
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/styles.css')
+    link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/css/cover.css')
+    link(rel='stylesheet', href='/css/bootstrap-datepicker3.standalone.css')
+    script(src='/js/jquery-2.2.0.min.js')
+    script(src='/js/bootstrap.min.js')
+    script(src='/js/bootstrap-datepicker.js')
+  body
+    .site-wrapper
+      .site-wrapper-inner
+        .cover-container
+          .masthead.clearfix
+            .inner
+              nav
+                ul.nav.masthead-nav
+                  li(class=title == 'Bunkr' ? 'active' : undefined)
+                    a(href="/") Home
+          .inner.cover
+            block content
+
